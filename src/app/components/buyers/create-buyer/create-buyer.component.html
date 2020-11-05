@@ -1,0 +1,40 @@
+<div class="form-container">
+    <form (ngSubmit)="onSubmit( formCreateB )" #formCreateB="ngForm" class="center">
+        <ul>
+            <li>
+                <mat-form-field appearance="standard">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput [(ngModel)]="createB.name" name="name" placeholder="" required>
+                    <mat-icon matSuffix>N</mat-icon>
+                    <mat-hint></mat-hint>
+                    <mat-error *ngIf="formCreateB.submitted && formCreateB.controls['name']?.errors">
+                        El nombre debe tener más de <strong>3</strong> caracteres.
+                    </mat-error>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field appearance="standard">
+                    <mat-label>Documento</mat-label>
+                    <input matInput [(ngModel)]="createB.document" name="document" type="number" placeholder="" required>
+                    <mat-icon matSuffix>D</mat-icon>
+                    <mat-hint>Cédula</mat-hint>
+                    <mat-error *ngIf="formCreateB.submitted && formCreateB.controls['document']?.errors">
+                        La documento debe tener al menos <strong>5</strong> caracteres.
+                    </mat-error>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field appearance="standard">
+                    <mat-label>Correo</mat-label>
+                    <input matInput [(ngModel)]="createB.email" name="email" placeholder="" required>
+                    <mat-icon matSuffix>C</mat-icon>
+                    <mat-error *ngIf="formCreateB.submitted && formCreateB.controls['email']?.errors">
+                        Ingrese un email valido.
+                    </mat-error>
+                </mat-form-field>
+            </li>
+        </ul>
+        <br>
+        <button mat-raised-button type="submit" class="ml-5">Guardar</button>
+    </form>
+</div>

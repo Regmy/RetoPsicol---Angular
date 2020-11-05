@@ -1,0 +1,37 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="gradientes shadows sidenavbar sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar class="animated fadeInLeft">
+            <mat-icon style="padding-right: 30%;">home</mat-icon> Menu
+        </mat-toolbar>
+        <mat-toolbar *ngIf="isHandset$ | async" color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+              <mat-icon aria-label="Side nav toggle icon">close</mat-icon>
+              <span>Cerrar</span>
+            </button>
+        </mat-toolbar>
+        <mat-nav-list class="animated fadeInLeft">
+            <a mat-list-item routerLink="compradores">
+                <mat-icon class="alinearIconos">supervisor_account</mat-icon>
+                Gestión Compradores
+            </a>
+            <a mat-list-item routerLink="sedes">
+                <mat-icon class="alinearIconos">add_circle_outline</mat-icon>
+                Gestion Sedes
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <!-- Topbar -->
+        <mat-toolbar class="animated fadeInDown shadows gradientes topnavbar ">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+            <mat-icon aria-label="Side nav toggle icon">{{ (drawer.opened)? 'keyboard_arrow_left' : 'keyboard_arrow_right' }}</mat-icon>
+          </button>
+            <span style="width: 90%; text-align: center;">Sistema de reserva de Boletas</span>
+        </mat-toolbar>
+
+        <div class="sidenav-container m-5">
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer></app-footer>
+    </mat-sidenav-content>
+</mat-sidenav-container>

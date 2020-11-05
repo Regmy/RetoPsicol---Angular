@@ -1,0 +1,47 @@
+<div style="text-align: center;">
+    <p> Para anexar Boletos Seleccione al Comprador para desplegar las opciones.</p>
+    <p> Al selecionar una sede se consultan los boletos restantes de cada una de ellas.</p>
+    <br>
+</div>
+<table mat-table [dataSource]="buyers" multiTemplateDataRows class="mat-elevation-z8">
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index">
+        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div>
+                    <form (ngSubmit)="onSubmit( formAssignament, element.id )" #formAssignament="ngForm">
+                        <p>Asignación de Boletas</p>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Seleccionar Sede</mat-label>
+                            <mat-select ngModel name="branch_office_id" required>
+                                <mat-option *ngFor="let option of branchOfficesSelects" [value]="option['id']">
+                                    {{option['name']}} - Boletas Disponibles: {{option['tickets_quantity'] - option['tickets_sold'] }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Cantidade Boletas a Asignar</mat-label>
+                            <input ngModel matInput name="quantity_tickets" type="number" placeholder="" required>
+                            <mat-hint></mat-hint>
+                        </mat-form-field>
+                        <button mat-raised-button type="submit" class="ml-5">Guardar</button>
+                    </form>
+                    <form (ngSubmit)="onSubmitDelete( element.id )" #formDeleteBuyer="ngForm">
+                        <div style="text-align: center;">
+                            <button mat-raised-button type="submit" class="ml-5">Eliminar Comprador</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>

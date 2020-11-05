@@ -1,0 +1,26 @@
+<div class="form-container">
+    <form (ngSubmit)="onSubmit( formcreateBranchOffice )" #formcreateBranchOffice="ngForm" class="center">
+        <ul>
+            <li>
+                <mat-form-field appearance="standard">
+                    <mat-label>Nombre de la Sede</mat-label>
+                    <input matInput [(ngModel)]="createBranchOffice.name" name="name" placeholder="" required>
+                    <mat-icon matSuffix>N</mat-icon>
+                    <mat-hint></mat-hint>
+                    <mat-error *ngIf="formcreateBranchOffice.submitted && formcreateBranchOffice.controls['name']?.errors">
+                        El nombre debe tener más de <strong>3</strong> caracteres.
+                    </mat-error>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field appearance="standard">
+                    <mat-label>Cantidad de Tickets a Vender</mat-label>
+                    <input matInput [(ngModel)]="createBranchOffice.tickets_quantity" name="tickets_quantity" type="number" placeholder="" required>
+                    <mat-icon matSuffix>C</mat-icon>
+                </mat-form-field>
+            </li>
+        </ul>
+        <br>
+        <button mat-raised-button type="submit" class="ml-5">Guardar</button>
+    </form>
+</div>
